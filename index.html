@@ -13,167 +13,97 @@
   --gold:#f5c77a;
   --glass:rgba(255,255,255,.12);
 }
-
 *{margin:0;padding:0;box-sizing:border-box}
-
 body{
   font-family:'Playfair Display',serif;
   background:radial-gradient(circle at top,#ff5fa2,#5b0028);
   color:white;
   overflow:hidden;
 }
-
-/* STORY */
 .story{
-  height:100vh;
-  width:100vw;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:20px;
+  height:100vh;width:100vw;display:none;
+  align-items:center;justify-content:center;
+  text-align:center;padding:20px;
 }
 .story.active{display:flex}
-
-/* CARD */
 .card{
-  max-width:420px;
-  width:100%;
+  max-width:420px;width:100%;
   background:var(--glass);
   backdrop-filter:blur(18px);
-  border-radius:26px;
-  padding:30px;
+  border-radius:26px;padding:30px;
   box-shadow:0 0 45px rgba(255,154,203,.45);
   position:relative;
 }
-
-/* TEXT */
-h1{
-  font-family:'Allura',cursive;
-  font-size:52px;
-  color:var(--gold);
-}
+h1{font-family:'Allura',cursive;font-size:52px;color:var(--gold)}
 p{margin:16px 0;line-height:1.6}
 .tap{opacity:.6;font-size:13px}
-
-/* BUTTONS */
 button{
-  padding:14px 34px;
-  border:none;
-  border-radius:40px;
+  padding:14px 34px;border:none;border-radius:40px;
   background:linear-gradient(135deg,#ff9acb,#ff4f9a);
-  color:#2b0020;
-  font-weight:600;
+  color:#2b0020;font-weight:600;
   box-shadow:0 0 30px rgba(255,154,203,.8);
 }
-
-/* MUTE BUTTON */
 #muteBtn{
-  position:fixed;
-  top:18px;
-  right:18px;
-  font-size:22px;
-  background:var(--glass);
+  position:fixed;top:18px;right:18px;
+  font-size:22px;background:var(--glass);
   backdrop-filter:blur(10px);
-  border-radius:50%;
-  width:46px;
-  height:46px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  z-index:999;
+  border-radius:50%;width:46px;height:46px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;z-index:999;
 }
-
-/* ===== 3D CUBE – FINAL iPHONE FIX ===== */
-.scene{
-  width:220px;
-  height:220px;
-  margin:30px auto;
-  perspective:900px;
-}
-
+.scene{width:220px;height:220px;margin:30px auto;perspective:900px}
 .cube{
-  width:100%;
-  height:100%;
-  position:relative;
+  width:100%;height:100%;position:relative;
   transform-style:preserve-3d;
   animation:spin 12s linear infinite;
 }
-
 .cube div{
-  position:absolute;
-  width:220px;
-  height:220px;
-  background-size:cover;
-  background-position:center;
+  position:absolute;width:220px;height:220px;
+  background-size:cover;background-position:center;
   border-radius:18px;
   box-shadow:0 0 30px rgba(255,154,203,.8);
-
-  /* 🔥 CRITICAL FIX */
   backface-visibility:visible;
-  -webkit-backface-visibility:visible;
 }
-
-/* exact half size = 110px */
-.cube .front  { transform:translateZ(110px); background-image:url('photo1.jpg.png'); }
-.cube .back   { transform:rotateY(180deg) translateZ(110px); background-image:url('photo2.jpg'); }
-.cube .right  { transform:rotateY(90deg) translateZ(110px); background-image:url('photo3.jpg'); }
-.cube .left   { transform:rotateY(-90deg) translateZ(110px); background-image:url('photo4.jpg'); }
-.cube .top    { transform:rotateX(90deg) translateZ(110px); background-image:url('photo5.jpg'); }
-.cube .bottom { transform:rotateX(-90deg) translateZ(110px); background-image:url('photo7.jpg.png'); }
-
+.cube .front{transform:translateZ(110px);background-image:url('photo1.jpg.png')}
+.cube .back{transform:rotateY(180deg) translateZ(110px);background-image:url('photo2.jpg')}
+.cube .right{transform:rotateY(90deg) translateZ(110px);background-image:url('photo3.jpg')}
+.cube .left{transform:rotateY(-90deg) translateZ(110px);background-image:url('photo4.jpg')}
+.cube .top{transform:rotateX(90deg) translateZ(110px);background-image:url('photo5.jpg')}
+.cube .bottom{transform:rotateX(-90deg) translateZ(110px);background-image:url('photo7.jpg.png')}
 @keyframes spin{
   from{transform:rotateX(-15deg) rotateY(0deg)}
   to{transform:rotateX(-15deg) rotateY(360deg)}
 }
-
-/* NO BUTTON */
-#noBtn{
-  position:absolute;
-  background:#4a0025;
-  color:white;
-}
-
-/* HEART CONFETTI */
+#noBtn{position:absolute;background:#4a0025;color:white}
 #heart-container{position:fixed;inset:0;pointer-events:none;z-index:998}
 .heart{
-  position:absolute;
-  bottom:-30px;
-  width:18px;height:18px;
-  background:pink;
+  position:absolute;bottom:-30px;
+  width:18px;height:18px;background:pink;
   transform:rotate(45deg);
   animation:floatUp linear forwards;
 }
 .heart:before,.heart:after{
-  content:"";
-  position:absolute;
-  width:18px;height:18px;
-  background:inherit;
-  border-radius:50%;
+  content:"";position:absolute;
+  width:18px;height:18px;background:inherit;border-radius:50%;
 }
 .heart:before{top:-9px}
 .heart:after{left:-9px}
 @keyframes floatUp{
   to{transform:translateY(-120vh) rotate(45deg);opacity:0}
 }
-
-/* QR */
-#qr{margin-top:15px}
 </style>
 </head>
 
 <body>
 
-<div id="muteBtn" onclick="toggleMute()">🔇</div>
+<div id="muteBtn">🔇</div>
 <div id="heart-container"></div>
 
-<!-- YouTube Music -->
-<iframe id="ytMusic" width="0" height="0"
-src="https://youtu.be/_-THHp9luSA?si=wc7a2qOyL4lZzywq&mute=1"
-allow="autoplay"></iframe>
+<!-- 🎵 AUDIO -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="edho-solla-mass.mp3" type="audio/mpeg">
+</audio>
 
-<!-- STORIES -->
 <div class="story active" onclick="nextStory()">
   <div class="card">
     <h1>Hey SAM 💗</h1>
@@ -193,12 +123,9 @@ allow="autoplay"></iframe>
     <h1>Us 💞</h1>
     <div class="scene">
       <div class="cube">
-        <div class="front"></div>
-        <div class="back"></div>
-        <div class="right"></div>
-        <div class="left"></div>
-        <div class="top"></div>
-        <div class="bottom"></div>
+        <div class="front"></div><div class="back"></div>
+        <div class="right"></div><div class="left"></div>
+        <div class="top"></div><div class="bottom"></div>
       </div>
     </div>
   </div>
@@ -209,44 +136,38 @@ allow="autoplay"></iframe>
     <h1>Will You Be Mine? 💍</h1>
     <button onclick="yes()">YES 💖</button>
     <button id="noBtn">NO</button>
-    <div id="qr"></div>
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
 <script>
 const stories=document.querySelectorAll('.story');
-let current=0;
-let muted=true;
+const music=document.getElementById('bgMusic');
+const muteBtn=document.getElementById('muteBtn');
+let current=0, muted=true;
 
 function nextStory(){
   if(current===0){
-    unmuteYT();
+    music.volume=0.6;
+    music.play().catch(()=>{});
+    muted=false;
+    muteBtn.textContent='🔊';
   }
   stories[current].classList.remove('active');
   current++;
-  if(current<stories.length)stories[current].classList.add('active');
+  if(current<stories.length) stories[current].classList.add('active');
 }
 
-/* YouTube mute workaround */
-function unmuteYT(){
-  const yt=document.getElementById("ytMusic");
-  yt.src="https://www.youtube.com/embed/_-THHp9luSA?autoplay=1&loop=1&playlist=_-THHp9luSA";
-  muted=false;
-  muteBtn.innerText="🔊";
-}
-
-function toggleMute(){
-  const yt=document.getElementById("ytMusic");
+muteBtn.onclick=()=>{
   if(muted){
-    unmuteYT();
+    music.play();
+    muted=false;
+    muteBtn.textContent='🔊';
   }else{
-    yt.src="https://youtu.be/_-THHp9luSA?si=wc7a2qOyL4lZzywq=1";
+    music.pause();
     muted=true;
-    muteBtn.innerText="🔇";
+    muteBtn.textContent='🔇';
   }
-}
+};
 
 function yes(){
   blastHearts();
@@ -259,29 +180,24 @@ function yes(){
     </div>`;
 }
 
-/* NO BUTTON */
-const noBtn=document.getElementById("noBtn");
+const noBtn=document.getElementById('noBtn');
 noBtn.onmouseover=noBtn.ontouchstart=()=>{
-  noBtn.style.left=Math.random()*200+"px";
-  noBtn.style.top=Math.random()*120+"px";
+  noBtn.style.left=Math.random()*200+'px';
+  noBtn.style.top=Math.random()*120+'px';
 };
 
-/* HEARTS */
-const hc=document.getElementById("heart-container");
+const hc=document.getElementById('heart-container');
 function heart(){
-  const h=document.createElement("div");
-  h.className="heart";
-  h.style.left=Math.random()*100+"vw";
-  h.style.animationDuration=Math.random()*3+4+"s";
+  const h=document.createElement('div');
+  h.className='heart';
+  h.style.left=Math.random()*100+'vw';
+  h.style.animationDuration=Math.random()*3+4+'s';
   hc.appendChild(h);
   setTimeout(()=>h.remove(),7000);
 }
 setInterval(heart,500);
 function blastHearts(){for(let i=0;i<50;i++)setTimeout(heart,i*25);}
-
-
 </script>
 
 </body>
 </html>
-
