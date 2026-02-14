@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You ❤️</title>
+
+<!-- FONTS -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Allura&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --pink:#ff9acb;
+  --rose:#c2185b;
+  --gold:#f5c77a;
+  --glass:rgba(255,255,255,.12);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:'Playfair Display',serif;
+  background:radial-gradient(circle at top,#ff5fa2,#5b0028);
+  color:white;
+  overflow:hidden;
+}
+
+/* STORY LAYOUT */
+.story{
+  height:100vh;
+  width:100vw;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:25px;
+}
+.story.active{display:flex}
+
+/* CARD */
+.card{
+  width:100%;
+  max-width:420px;
+  background:var(--glass);
+  backdrop-filter:blur(18px);
+  border-radius:26px;
+  padding:32px;
+  box-shadow:0 0 45px rgba(255,154,203,.45);
+  animation:fade .8s ease;
+  position:relative;
+}
+
+@keyframes fade{
+  from{opacity:0;transform:scale(.92)}
+  to{opacity:1}
+}
+
+h1{
+  font-family:'Allura',cursive;
+  font-size:56px;
+  color:var(--gold);
+  text-shadow:0 0 18px rgba(245,199,122,.7);
+}
+
+p{
+  margin:18px 0;
+  font-size:17px;
+  line-height:1.7;
+  opacity:.95;
+}
+
+.tap{
+  margin-top:22px;
+  font-size:13px;
+  opacity:.65;
+  letter-spacing:1px;
+}
+
+/* BUTTONS */
+button{
+  margin-top:20px;
+  padding:14px 36px;
+  border:none;
+  border-radius:40px;
+  background:linear-gradient(135deg,#ff9acb,#ff4f9a);
+  color:#2b0020;
+  font-size:16px;
+  font-weight:600;
+  box-shadow:0 0 30px rgba(255,154,203,.8);
+  cursor:pointer;
+}
+
+/* 3D PHOTO CUBE */
+.scene{
+  width:220px;
+  height:220px;
+  margin:32px auto;
+  perspective:900px;
+}
+
+.cube{
+  width:100%;
+  height:100%;
+  position:relative;
+  transform-style:preserve-3d;
+  animation:spin 12s infinite linear;
+}
+
+.cube div{
+  position:absolute;
+  width:220px;
+  height:220px;
+  background-size:cover;
+  background-position:center;
+  border-radius:18px;
+  box-shadow:0 0 30px rgba(255,154,203,.8);
+}
+
+.cube .front{transform:translateZ(110px);background-image:url('photo1.jpg')}
+.cube .back{transform:rotateY(180deg) translateZ(110px);background-image:url('photo2.jpg')}
+.cube .right{transform:rotateY(90deg) translateZ(110px);background-image:url('photo3.jpg')}
+.cube .left{transform:rotateY(-90deg) translateZ(110px);background-image:url('photo4.jpg')}
+.cube .top{transform:rotateX(90deg) translateZ(110px);background-image:url('photo5.jpg')}
+.cube .bottom{transform:rotateX(-90deg) translateZ(110px);background-image:url('photo6.jpg')}
+
+@keyframes spin{
+  from{transform:rotateX(0) rotateY(0)}
+  to{transform:rotateX(360deg) rotateY(360deg)}
+}
+
+/* PROPOSAL */
+.ring{
+  font-size:66px;
+  animation:pulse 1.6s infinite;
+}
+
+@keyframes pulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.2)}
+}
+
+/* NO BUTTON */
+#noBtn{
+  position:absolute;
+  background:#4a0025;
+  color:white;
+  box-shadow:0 0 18px rgba(255,0,100,.9);
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- STORY 1 -->
+<div class="story active" onclick="nextStory()">
+  <div class="card">
+    <h1>Hey JEBII 💗</h1>
+    <p>I made something special just for you…</p>
+    <div class="tap">TAP TO CONTINUE</div>
+  </div>
+</div>
+
+<!-- STORY 2 -->
+<div class="story" onclick="nextStory()">
+  <div class="card">
+    <p>Every smile, every memory, every moment with you means everything to me.</p>
+    <div class="tap">TAP</div>
+  </div>
+</div>
+
+<!-- STORY 3 -->
+<div class="story" onclick="nextStory()">
+  <div class="card">
+    <h1>Us 💞</h1>
+    <div class="scene">
+      <div class="cube">
+        <div class="front"></div>
+        <div class="back"></div>
+        <div class="right"></div>
+        <div class="left"></div>
+        <div class="top"></div>
+        <div class="bottom"></div>
+      </div>
+    </div>
+    <p>Every angle… still perfect.</p>
+  </div>
+</div>
+
+<!-- STORY 4 -->
+<div class="story" onclick="nextStory()">
+  <div class="card">
+    <p>I don’t want just moments with you… I want a lifetime.</p>
+    <div class="tap">TAP</div>
+  </div>
+</div>
+
+<!-- STORY 5 -->
+<div class="story">
+  <div class="card">
+    <div class="ring">💍</div>
+    <h1>Will You Be My Galentine?</h1>
+    <div style="margin-top:22px">
+      <button onclick="yes()">YES 💖</button>
+      <button id="noBtn">NO</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const stories=document.querySelectorAll('.story');
+let current=0;
+const music=document.getElementById('music');
+
+function nextStory(){
+  if(current===0){
+    music.volume=0;
+    music.play();
+    fadeMusic();
+  }
+  stories[current].classList.remove('active');
+  current++;
+  if(current<stories.length){
+    stories[current].classList.add('active');
+  }
+}
+
+function fadeMusic(){
+  let v=0;
+  const f=setInterval(()=>{
+    v+=0.02;
+    music.volume=v;
+    if(v>=1) clearInterval(f);
+  },80);
+}
+
+function yes(){
+  document.body.innerHTML=`
+    <div class="story active">
+      <div class="card">
+        <h1>Forever Yours 💗</h1>
+        <p>You just made this the happiest moment of my life.</p>
+      </div>
+    </div>`;
+}
+
+const noBtn=document.getElementById('noBtn');
+function moveNo(){
+  const card=noBtn.parentElement.parentElement;
+  const x=Math.random()*(card.offsetWidth-100);
+  const y=Math.random()*(card.offsetHeight-50);
+  noBtn.style.left=x+"px";
+  noBtn.style.top=y+"px";
+}
+noBtn.addEventListener("mouseover",moveNo);
+noBtn.addEventListener("touchstart",moveNo);
+</script>
+
+</body>
+</html>
