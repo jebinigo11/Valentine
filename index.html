@@ -33,6 +33,7 @@ body{
   border-radius:26px;padding:30px;
   box-shadow:0 0 45px rgba(255,154,203,.45);
   position:relative;
+  min-height: 300px; /* Added to give the NO button room to move */
 }
 h1{font-family:'Allura',cursive;font-size:52px;color:var(--gold)}
 p{margin:16px 0;line-height:1.6}
@@ -42,6 +43,7 @@ button{
   background:linear-gradient(135deg,#ff9acb,#ff4f9a);
   color:#2b0020;font-weight:600;
   box-shadow:0 0 30px rgba(255,154,203,.8);
+  cursor: pointer;
 }
 #muteBtn{
   position:fixed;top:18px;right:18px;
@@ -64,17 +66,27 @@ button{
   box-shadow:0 0 30px rgba(255,154,203,.8);
   backface-visibility:visible;
 }
+
+/* Updated Image Paths based on your screenshot */
 .cube .front{transform:translateZ(110px);background-image:url('photo1.jpg.png')}
 .cube .back{transform:rotateY(180deg) translateZ(110px);background-image:url('photo2.jpg')}
 .cube .right{transform:rotateY(90deg) translateZ(110px);background-image:url('photo3.jpg')}
 .cube .left{transform:rotateY(-90deg) translateZ(110px);background-image:url('photo4.jpg')}
 .cube .top{transform:rotateX(90deg) translateZ(110px);background-image:url('photo5.jpg')}
 .cube .bottom{transform:rotateX(-90deg) translateZ(110px);background-image:url('photo7.jpg.png')}
+
 @keyframes spin{
   from{transform:rotateX(-15deg) rotateY(0deg)}
   to{transform:rotateX(-15deg) rotateY(360deg)}
 }
-#noBtn{position:absolute;background:#4a0025;color:white}
+
+#noBtn{
+  position:absolute;
+  background:#4a0025;
+  color:white;
+  transition: 0.1s; /* Makes the jump smoother */
+}
+
 #heart-container{position:fixed;inset:0;pointer-events:none;z-index:998}
 .heart{
   position:absolute;bottom:-30px;
@@ -99,9 +111,8 @@ button{
 <div id="muteBtn">🔇</div>
 <div id="heart-container"></div>
 
-<!-- 🎵 AUDIO -->
 <audio id="bgMusic" loop preload="auto">
-  <source src="edho-solla-mass.mp3" type="audio/mpeg">
+  <source src="edho-solla-mass.mp3.mp3" type="audio/mpeg">
 </audio>
 
 <div class="story active" onclick="nextStory()">
@@ -148,7 +159,7 @@ let current=0, muted=true;
 function nextStory(){
   if(current===0){
     music.volume=0.6;
-    music.play().catch(()=>{});
+    music.play().catch((err)=>{ console.log("Audio play blocked:", err) });
     muted=false;
     muteBtn.textContent='🔊';
   }
@@ -182,8 +193,9 @@ function yes(){
 
 const noBtn=document.getElementById('noBtn');
 noBtn.onmouseover=noBtn.ontouchstart=()=>{
-  noBtn.style.left=Math.random()*200+'px';
-  noBtn.style.top=Math.random()*120+'px';
+  // Moves button randomly within the card
+  noBtn.style.left=Math.random()*250+'px';
+  noBtn.style.top=Math.random()*200+'px';
 };
 
 const hc=document.getElementById('heart-container');
