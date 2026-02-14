@@ -5,13 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For You ❤️</title>
 
-<!-- FONTS -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Allura&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Allura&display=swap" rel="stylesheet">
 
 <style>
 :root{
   --pink:#ff9acb;
-  --rose:#c2185b;
   --gold:#f5c77a;
   --glass:rgba(255,255,255,.12);
 }
@@ -25,7 +23,7 @@ body{
   overflow:hidden;
 }
 
-/* STORY LAYOUT */
+/* STORY */
 .story{
   height:100vh;
   width:100vw;
@@ -33,68 +31,65 @@ body{
   align-items:center;
   justify-content:center;
   text-align:center;
-  padding:25px;
+  padding:20px;
 }
 .story.active{display:flex}
 
 /* CARD */
 .card{
-  width:100%;
   max-width:420px;
+  width:100%;
   background:var(--glass);
   backdrop-filter:blur(18px);
   border-radius:26px;
-  padding:32px;
+  padding:30px;
   box-shadow:0 0 45px rgba(255,154,203,.45);
-  animation:fade .8s ease;
   position:relative;
 }
 
-@keyframes fade{
-  from{opacity:0;transform:scale(.92)}
-  to{opacity:1}
-}
-
+/* TEXT */
 h1{
   font-family:'Allura',cursive;
-  font-size:56px;
+  font-size:52px;
   color:var(--gold);
-  text-shadow:0 0 18px rgba(245,199,122,.7);
 }
-
-p{
-  margin:18px 0;
-  font-size:17px;
-  line-height:1.7;
-  opacity:.95;
-}
-
-.tap{
-  margin-top:22px;
-  font-size:13px;
-  opacity:.65;
-  letter-spacing:1px;
-}
+p{margin:16px 0;line-height:1.6}
+.tap{opacity:.6;font-size:13px}
 
 /* BUTTONS */
 button{
-  margin-top:20px;
-  padding:14px 36px;
+  padding:14px 34px;
   border:none;
   border-radius:40px;
   background:linear-gradient(135deg,#ff9acb,#ff4f9a);
   color:#2b0020;
-  font-size:16px;
   font-weight:600;
   box-shadow:0 0 30px rgba(255,154,203,.8);
-  cursor:pointer;
 }
 
-/* 3D PHOTO CUBE */
+/* MUTE BUTTON */
+#muteBtn{
+  position:fixed;
+  top:18px;
+  right:18px;
+  font-size:22px;
+  background:var(--glass);
+  backdrop-filter:blur(10px);
+  border-radius:50%;
+  width:46px;
+  height:46px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  z-index:999;
+}
+
+/* ===== 3D CUBE – FINAL iPHONE FIX ===== */
 .scene{
   width:220px;
   height:220px;
-  margin:32px auto;
+  margin:30px auto;
   perspective:900px;
 }
 
@@ -103,7 +98,7 @@ button{
   height:100%;
   position:relative;
   transform-style:preserve-3d;
-  animation:spin 12s infinite linear;
+  animation:spin 12s linear infinite;
 }
 
 .cube div{
@@ -114,29 +109,23 @@ button{
   background-position:center;
   border-radius:18px;
   box-shadow:0 0 30px rgba(255,154,203,.8);
+
+  /* 🔥 CRITICAL FIX */
+  backface-visibility:visible;
+  -webkit-backface-visibility:visible;
 }
 
-.cube .front{transform:translateZ(110px);background-image:url('photo1.jpg.png')}
-.cube .back{transform:rotateY(180deg) translateZ(110px);background-image:url('photo2.jpg')}
-.cube .right{transform:rotateY(90deg) translateZ(110px);background-image:url('photo3.jpg')}
-.cube .left{transform:rotateY(-90deg) translateZ(110px);background-image:url('photo4.jpg')}
-.cube .top{transform:rotateX(90deg) translateZ(110px);background-image:url('photo5.jpg')}
-.cube .bottom{transform:rotateX(-90deg) translateZ(110px);background-image:url('photo7.jpg.png')}
+/* exact half size = 110px */
+.cube .front  { transform:translateZ(110px); background-image:url('photo1.jpg'); }
+.cube .back   { transform:rotateY(180deg) translateZ(110px); background-image:url('photo2.jpg'); }
+.cube .right  { transform:rotateY(90deg) translateZ(110px); background-image:url('photo3.jpg'); }
+.cube .left   { transform:rotateY(-90deg) translateZ(110px); background-image:url('photo4.jpg'); }
+.cube .top    { transform:rotateX(90deg) translateZ(110px); background-image:url('photo5.jpg'); }
+.cube .bottom { transform:rotateX(-90deg) translateZ(110px); background-image:url('photo6.jpg'); }
 
 @keyframes spin{
-  from{transform:rotateX(0) rotateY(0)}
-  to{transform:rotateX(360deg) rotateY(360deg)}
-}
-
-/* PROPOSAL */
-.ring{
-  font-size:66px;
-  animation:pulse 1.6s infinite;
-}
-
-@keyframes pulse{
-  0%,100%{transform:scale(1)}
-  50%{transform:scale(1.2)}
+  from{transform:rotateX(-15deg) rotateY(0deg)}
+  to{transform:rotateX(-15deg) rotateY(360deg)}
 }
 
 /* NO BUTTON */
@@ -144,35 +133,61 @@ button{
   position:absolute;
   background:#4a0025;
   color:white;
-  box-shadow:0 0 18px rgba(255,0,100,.9);
 }
+
+/* HEART CONFETTI */
+#heart-container{position:fixed;inset:0;pointer-events:none;z-index:998}
+.heart{
+  position:absolute;
+  bottom:-30px;
+  width:18px;height:18px;
+  background:pink;
+  transform:rotate(45deg);
+  animation:floatUp linear forwards;
+}
+.heart:before,.heart:after{
+  content:"";
+  position:absolute;
+  width:18px;height:18px;
+  background:inherit;
+  border-radius:50%;
+}
+.heart:before{top:-9px}
+.heart:after{left:-9px}
+@keyframes floatUp{
+  to{transform:translateY(-120vh) rotate(45deg);opacity:0}
+}
+
+/* QR */
+#qr{margin-top:15px}
 </style>
 </head>
 
 <body>
 
-<audio id="music" loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
+<div id="muteBtn" onclick="toggleMute()">🔇</div>
+<div id="heart-container"></div>
 
-<!-- STORY 1 -->
+<!-- YouTube Music -->
+<iframe id="ytMusic" width="0" height="0"
+src="https://www.youtube.com/embed/_-THHp9luSA?autoplay=1&loop=1&playlist=_-THHp9luSA&mute=1"
+allow="autoplay"></iframe>
+
+<!-- STORIES -->
 <div class="story active" onclick="nextStory()">
   <div class="card">
-    <h1>Hey Sam 💗</h1>
+    <h1>Hey SAM 💗</h1>
     <p>I made something special just for you…</p>
-    <div class="tap">TAP TO CONTINUE</div>
+    <div class="tap">Tap to begin</div>
   </div>
 </div>
 
-<!-- STORY 2 -->
 <div class="story" onclick="nextStory()">
   <div class="card">
-    <p>Every smile, every memory, every moment with you means everything to me.</p>
-    <div class="tap">TAP</div>
+    <p>Every smile of yours makes my world brighter.</p>
   </div>
 </div>
 
-<!-- STORY 3 -->
 <div class="story" onclick="nextStory()">
   <div class="card">
     <h1>Us 💞</h1>
@@ -186,80 +201,86 @@ button{
         <div class="bottom"></div>
       </div>
     </div>
-    <p>Every angle… still perfect.</p>
   </div>
 </div>
 
-<!-- STORY 4 -->
-<div class="story" onclick="nextStory()">
-  <div class="card">
-    <p>I don’t want just moments with you… I want a lifetime.</p>
-    <div class="tap">TAP</div>
-  </div>
-</div>
-
-<!-- STORY 5 -->
 <div class="story">
   <div class="card">
-    <div class="ring">💍</div>
-    <h1>Will You Be My Galentine?</h1>
-    <div style="margin-top:22px">
-      <button onclick="yes()">YES 💖</button>
-      <button id="noBtn">NO</button>
-    </div>
+    <h1>Will You Be Mine? 💍</h1>
+    <button onclick="yes()">YES 💖</button>
+    <button id="noBtn">NO</button>
+    <div id="qr"></div>
   </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <script>
 const stories=document.querySelectorAll('.story');
 let current=0;
-const music=document.getElementById('music');
+let muted=true;
 
 function nextStory(){
   if(current===0){
-    music.volume=0;
-    music.play();
-    fadeMusic();
+    unmuteYT();
   }
   stories[current].classList.remove('active');
   current++;
-  if(current<stories.length){
-    stories[current].classList.add('active');
+  if(current<stories.length)stories[current].classList.add('active');
+}
+
+/* YouTube mute workaround */
+function unmuteYT(){
+  const yt=document.getElementById("ytMusic");
+  yt.src="https://www.youtube.com/embed/_-THHp9luSA?autoplay=1&loop=1&playlist=_-THHp9luSA";
+  muted=false;
+  muteBtn.innerText="🔊";
+}
+
+function toggleMute(){
+  const yt=document.getElementById("ytMusic");
+  if(muted){
+    unmuteYT();
+  }else{
+    yt.src="https://www.youtube.com/embed/_-THHp9luSA?autoplay=1&loop=1&playlist=_-THHp9luSA&mute=1";
+    muted=true;
+    muteBtn.innerText="🔇";
   }
 }
 
-function fadeMusic(){
-  let v=0;
-  const f=setInterval(()=>{
-    v+=0.02;
-    music.volume=v;
-    if(v>=1) clearInterval(f);
-  },80);
-}
-
 function yes(){
+  blastHearts();
   document.body.innerHTML=`
     <div class="story active">
       <div class="card">
-        <h1>Forever Yours 💗</h1>
-        <p>You just made this the happiest moment of my life.</p>
+        <h1>Forever 💗</h1>
+        <p>You just made me the happiest person alive.</p>
       </div>
     </div>`;
 }
 
-const noBtn=document.getElementById('noBtn');
-function moveNo(){
-  const card=noBtn.parentElement.parentElement;
-  const x=Math.random()*(card.offsetWidth-100);
-  const y=Math.random()*(card.offsetHeight-50);
-  noBtn.style.left=x+"px";
-  noBtn.style.top=y+"px";
+/* NO BUTTON */
+const noBtn=document.getElementById("noBtn");
+noBtn.onmouseover=noBtn.ontouchstart=()=>{
+  noBtn.style.left=Math.random()*200+"px";
+  noBtn.style.top=Math.random()*120+"px";
+};
+
+/* HEARTS */
+const hc=document.getElementById("heart-container");
+function heart(){
+  const h=document.createElement("div");
+  h.className="heart";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=Math.random()*3+4+"s";
+  hc.appendChild(h);
+  setTimeout(()=>h.remove(),7000);
 }
-noBtn.addEventListener("mouseover",moveNo);
-noBtn.addEventListener("touchstart",moveNo);
+setInterval(heart,500);
+function blastHearts(){for(let i=0;i<50;i++)setTimeout(heart,i*25);}
+
+
 </script>
 
 </body>
 </html>
-
-
