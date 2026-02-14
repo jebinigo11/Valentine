@@ -116,12 +116,12 @@ button{
 }
 
 /* exact half size = 110px */
-.cube .front  { transform:translateZ(110px); background-image:url('photo1.jpg'); }
+.cube .front  { transform:translateZ(110px); background-image:url('photo1.jpg.png'); }
 .cube .back   { transform:rotateY(180deg) translateZ(110px); background-image:url('photo2.jpg'); }
 .cube .right  { transform:rotateY(90deg) translateZ(110px); background-image:url('photo3.jpg'); }
 .cube .left   { transform:rotateY(-90deg) translateZ(110px); background-image:url('photo4.jpg'); }
 .cube .top    { transform:rotateX(90deg) translateZ(110px); background-image:url('photo5.jpg'); }
-.cube .bottom { transform:rotateX(-90deg) translateZ(110px); background-image:url('photo6.jpg'); }
+.cube .bottom { transform:rotateX(-90deg) translateZ(110px); background-image:url('photo7.jpg.png'); }
 
 @keyframes spin{
   from{transform:rotateX(-15deg) rotateY(0deg)}
@@ -170,7 +170,7 @@ button{
 
 <!-- YouTube Music -->
 <iframe id="ytMusic" width="0" height="0"
-src="https://www.youtube.com/embed/_-THHp9luSA?autoplay=1&loop=1&playlist=_-THHp9luSA&mute=1"
+src="https://youtu.be/_-THHp9luSA?si=wc7a2qOyL4lZzywq&mute=1"
 allow="autoplay"></iframe>
 
 <!-- STORIES -->
@@ -242,7 +242,7 @@ function toggleMute(){
   if(muted){
     unmuteYT();
   }else{
-    yt.src="https://www.youtube.com/embed/_-THHp9luSA?autoplay=1&loop=1&playlist=_-THHp9luSA&mute=1";
+    yt.src="https://youtu.be/_-THHp9luSA?si=wc7a2qOyL4lZzywq=1";
     muted=true;
     muteBtn.innerText="🔇";
   }
@@ -284,3 +284,4 @@ function blastHearts(){for(let i=0;i<50;i++)setTimeout(heart,i*25);}
 
 </body>
 </html>
+
